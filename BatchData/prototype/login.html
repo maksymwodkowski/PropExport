@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PropData — Sign In</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css?v=2" />
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+  <style>
+    .auth-tabs {
+      display: flex;
+      background: var(--color-neutral-100);
+      border-radius: var(--radius-lg);
+      padding: 3px;
+      margin-bottom: var(--space-6);
+    }
+    .auth-tab {
+      flex: 1;
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-neutral-500);
+      background: none;
+      border: none;
+      border-radius: calc(var(--radius-lg) - 3px);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 150ms ease;
+    }
+    .auth-tab--active {
+      background: white;
+      color: var(--color-neutral-900);
+      font-weight: 600;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .auth-view { display: none; }
+    .auth-view--active { display: block; }
+    .forgot-link {
+      font-size: 12px;
+      color: var(--color-primary-500);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      padding: 0;
+      text-decoration: none;
+    }
+    .forgot-link:hover { text-decoration: underline; }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      color: var(--color-neutral-500);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      padding: 0;
+      margin-bottom: var(--space-5);
+    }
+    .back-link:hover { color: var(--color-neutral-700); }
+    .reset-success {
+      text-align: center;
+      padding: var(--space-6) 0;
+    }
+    .reset-success__icon {
+      width: 48px; height: 48px;
+      background: var(--color-success-50);
+      border-radius: var(--radius-full);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto var(--space-4);
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-page">
+  <div class="login-card">
+
+    <div class="login-brand">
+      <div class="login-brand__logo">Prop<em>Data</em></div>
+      <p class="login-brand__tagline">List Builder — Self-Service Data Platform</p>
+    </div>
+
+    <!-- Tab switcher (hidden on forgot password view) -->
+    <div class="auth-tabs" id="authTabs">
+      <button class="auth-tab auth-tab--active" onclick="showView('login')">Sign in</button>
+      <button class="auth-tab" onclick="showView('register')">Create account</button>
+    </div>
+
+    <!-- ── Sign In ── -->
+    <div class="auth-view auth-view--active" id="view-login">
+      <form class="login-form" onsubmit="handleLogin(event)">
+
+        <div class="login-form__group">
+          <label class="form-label" for="email">Work email</label>
+          <input type="email" id="email" class="input input-filled"
+            placeholder="you@company.com" autocomplete="email" required />
+        </div>
+
+        <div class="login-form__group">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <label class="form-label" for="password" style="margin-bottom:0">Password</label>
+            <button type="button" class="forgot-link" onclick="showView('forgot')">Forgot password?</button>
+          </div>
+          <input type="password" id="password" class="input input-filled"
+            placeholder="••••••••" autocomplete="current-password" required />
+        </div>
+
+        <div id="loginError" class="alert alert--error" style="display:none">
+          <svg class="alert__icon" viewBox="0 0 18 18" fill="none"><path d="M9 3L2 15h14L9 3z" stroke="currentColor" stroke-width="1.5"/><path d="M9 8v3M9 13v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span>Incorrect email or password.</span>
+        </div>
+
+        <button class="btn btn-primary btn-md" type="submit" style="width:100%; margin-top:4px;">
+          Sign in
+        </button>
+
+      </form>
+
+      <!-- Demo credentials hint -->
+      <div style="margin-top:var(--space-6); padding:var(--space-4); background:var(--color-neutral-50); border:1px solid var(--color-neutral-200); border-radius:var(--radius-lg);">
+        <p style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--color-neutral-400); margin-bottom:var(--space-3);">Demo credentials</p>
+        <div style="display:flex; flex-direction:column; gap:var(--space-2);">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:12px; color:var(--color-neutral-600);">Regular user</span>
+            <button type="button" onclick="fillCredentials('user@propdata.com','user123')"
+              style="font-size:11px; color:var(--color-primary-500); background:none; border:none; cursor:pointer; font-family:inherit; font-weight:500;">
+              user@propdata.com / user123
+            </button>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:12px; color:var(--color-neutral-600);">Admin</span>
+            <button type="button" onclick="fillCredentials('admin@propdata.com','admin123')"
+              style="font-size:11px; color:var(--color-primary-500); background:none; border:none; cursor:pointer; font-family:inherit; font-weight:500;">
+              admin@propdata.com / admin123
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Create Account ── -->
+    <div class="auth-view" id="view-register">
+      <form class="login-form" onsubmit="handleRegister(event)">
+
+        <div style="display:flex; gap:var(--space-3);">
+          <div class="login-form__group" style="flex:1">
+            <label class="form-label" for="regFirstName">First name</label>
+            <input type="text" id="regFirstName" class="input input-filled"
+              placeholder="James" autocomplete="given-name" required />
+          </div>
+          <div class="login-form__group" style="flex:1">
+            <label class="form-label" for="regLastName">Last name</label>
+            <input type="text" id="regLastName" class="input input-filled"
+              placeholder="Carter" autocomplete="family-name" required />
+          </div>
+        </div>
+
+        <div class="login-form__group">
+          <label class="form-label" for="regEmail">Work email</label>
+          <input type="email" id="regEmail" class="input input-filled"
+            placeholder="you@company.com" autocomplete="email" required />
+        </div>
+
+        <div class="login-form__group">
+          <label class="form-label" for="regPassword">Password</label>
+          <input type="password" id="regPassword" class="input input-filled"
+            placeholder="Min. 8 characters" autocomplete="new-password" required />
+        </div>
+
+        <div class="login-form__group">
+          <label class="form-label" for="regConfirm">Confirm password</label>
+          <input type="password" id="regConfirm" class="input input-filled"
+            placeholder="••••••••" autocomplete="new-password" required />
+        </div>
+
+        <div id="registerError" class="alert alert--error" style="display:none">
+          <svg class="alert__icon" viewBox="0 0 18 18" fill="none"><path d="M9 3L2 15h14L9 3z" stroke="currentColor" stroke-width="1.5"/><path d="M9 8v3M9 13v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span id="registerErrorMsg">Passwords do not match.</span>
+        </div>
+
+        <button class="btn btn-primary btn-md" type="submit" style="width:100%; margin-top:4px;">
+          Create account
+        </button>
+
+      </form>
+    </div>
+
+    <!-- ── Forgot Password ── -->
+    <div class="auth-view" id="view-forgot">
+
+      <div id="forgotForm">
+        <button type="button" class="back-link" onclick="showView('login')">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Back to sign in
+        </button>
+
+        <div style="margin-bottom:var(--space-5);">
+          <h2 style="font-size:16px; font-weight:700; color:var(--color-neutral-900); margin-bottom:4px;">Reset your password</h2>
+          <p style="font-size:13px; color:var(--color-neutral-500);">Enter your email and we'll send you a reset link.</p>
+        </div>
+
+        <form class="login-form" onsubmit="handleForgot(event)">
+          <div class="login-form__group">
+            <label class="form-label" for="forgotEmail">Work email</label>
+            <input type="email" id="forgotEmail" class="input input-filled"
+              placeholder="you@company.com" autocomplete="email" required />
+          </div>
+          <button class="btn btn-primary btn-md" type="submit" style="width:100%;">
+            Send reset link
+          </button>
+        </form>
+      </div>
+
+      <div id="forgotSuccess" class="reset-success" style="display:none">
+        <div class="reset-success__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z" stroke="var(--color-success-500)" stroke-width="1.5"/><path d="M2 6l10 7 10-7" stroke="var(--color-success-500)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <p style="font-size:15px; font-weight:600; color:var(--color-neutral-900); margin-bottom:6px;">Check your inbox</p>
+        <p style="font-size:13px; color:var(--color-neutral-500); margin-bottom:var(--space-5);">We sent a password reset link to <strong id="forgotEmailSent"></strong>.</p>
+        <button type="button" class="forgot-link" onclick="showView('login')" style="font-size:13px;">Back to sign in</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+const CREDENTIALS = {
+  'user@propdata.com':  { password: 'user123',  role: 'user',  name: 'Sarah Mitchell', initials: 'SM' },
+  'admin@propdata.com': { password: 'admin123', role: 'admin', name: 'James Carter',   initials: 'JC' },
+};
+
+function showView(view) {
+  document.querySelectorAll('.auth-view').forEach(el => el.classList.remove('auth-view--active'));
+  document.getElementById('view-' + view).classList.add('auth-view--active');
+
+  const tabs = document.getElementById('authTabs');
+  tabs.style.display = (view === 'forgot') ? 'none' : 'flex';
+
+  if (view === 'login' || view === 'register') {
+    document.querySelectorAll('.auth-tab').forEach((btn, i) => {
+      btn.classList.toggle('auth-tab--active', (view === 'login' && i === 0) || (view === 'register' && i === 1));
+    });
+  }
+
+  if (view === 'forgot') {
+    document.getElementById('forgotForm').style.display = '';
+    document.getElementById('forgotSuccess').style.display = 'none';
+    document.getElementById('forgotEmail').value = '';
+  }
+}
+
+function handleLogin(e) {
+  e.preventDefault();
+  const email    = document.getElementById('email').value.trim().toLowerCase();
+  const password = document.getElementById('password').value;
+  const user     = CREDENTIALS[email];
+
+  if (user && user.password === password) {
+    sessionStorage.setItem('role',         user.role);
+    sessionStorage.setItem('userName',     user.name);
+    sessionStorage.setItem('userInitials', user.initials);
+    window.location.href = 'orders.html';
+  } else {
+    document.getElementById('loginError').style.display = 'flex';
+  }
+}
+
+function handleRegister(e) {
+  e.preventDefault();
+  const first    = document.getElementById('regFirstName').value.trim();
+  const last     = document.getElementById('regLastName').value.trim();
+  const email    = document.getElementById('regEmail').value.trim().toLowerCase();
+  const password = document.getElementById('regPassword').value;
+  const confirm  = document.getElementById('regConfirm').value;
+  const errEl    = document.getElementById('registerError');
+  const errMsg   = document.getElementById('registerErrorMsg');
+
+  if (password.length < 8) {
+    errMsg.textContent = 'Password must be at least 8 characters.';
+    errEl.style.display = 'flex'; return;
+  }
+  if (password !== confirm) {
+    errMsg.textContent = 'Passwords do not match.';
+    errEl.style.display = 'flex'; return;
+  }
+  errEl.style.display = 'none';
+
+  const name     = first + ' ' + last;
+  const initials = (first[0] + last[0]).toUpperCase();
+  sessionStorage.setItem('role',         'user');
+  sessionStorage.setItem('userName',     name);
+  sessionStorage.setItem('userInitials', initials);
+  window.location.href = 'orders.html';
+}
+
+function handleForgot(e) {
+  e.preventDefault();
+  const email = document.getElementById('forgotEmail').value.trim();
+  document.getElementById('forgotEmailSent').textContent = email;
+  document.getElementById('forgotForm').style.display = 'none';
+  document.getElementById('forgotSuccess').style.display = 'block';
+}
+
+const _urlView = new URLSearchParams(window.location.search).get('view');
+if (_urlView) showView(_urlView);
+
+function fillCredentials(email, password) {
+  document.getElementById('email').value    = email;
+  document.getElementById('password').value = password;
+  document.getElementById('loginError').style.display = 'none';
+}
+</script>
+
+</body>
+</html>

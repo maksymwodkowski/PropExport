@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PropData List Builder — Step 1</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css?v=2" />
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+  <script>sessionStorage.setItem('role','admin');sessionStorage.setItem('userName','James Carter');sessionStorage.setItem('userInitials','JC');</script>
+  <script src="js/auth.js"></script>
+</head>
+<body>
+
+<div class="app">
+
+  <div class="job-status-banner"></div>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="app-header__inner">
+      <div style="display:flex; align-items:center; gap:var(--space-4);">
+        <a href="orders.html" class="btn btn-outline btn-sm">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back
+        </a>
+        <h1 style="font-size:var(--font-size-2xl); font-weight:var(--font-weight-semibold); color:var(--color-neutral-900);">Define Your Pull</h1>
+      </div>
+
+      <!-- Close overlay -->
+      <a href="orders.html" class="overlay-close" aria-label="Close and return to My Lists">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+        </svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="app-main">
+
+    <!-- QuickList Templates — DS 23 -->
+    <section class="quicklist-templates">
+      <div class="section-header">
+        <h2>QuickList Templates</h2>
+        <p>Start with a pre-configured template</p>
+      </div>
+
+      <div class="template-card-grid">
+
+        <button class="template-card" data-template="active-listings" type="button">
+          <span class="template-card__check" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6.5l2.5 2.5L10 3.5" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="template-card__title">Active Listings</span>
+          <span class="template-card__desc">Properties currently on the market</span>
+        </button>
+
+        <button class="template-card" data-template="failed-listings" type="button">
+          <span class="template-card__check" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6.5l2.5 2.5L10 3.5" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="template-card__title">Failed Listings</span>
+          <span class="template-card__desc">Properties that expired or were withdrawn</span>
+        </button>
+
+        <button class="template-card" data-template="absentee-owners" type="button">
+          <span class="template-card__check" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6.5l2.5 2.5L10 3.5" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="template-card__title">Absentee Owners</span>
+          <span class="template-card__desc">Owners who don't live at the property</span>
+        </button>
+
+        <button class="template-card" data-template="high-equity" type="button">
+          <span class="template-card__check" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6.5l2.5 2.5L10 3.5" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="template-card__title">High Equity</span>
+          <span class="template-card__desc">Properties with significant equity</span>
+        </button>
+
+      </div>
+    </section>
+
+    <!-- Filter Builder — DS 24 -->
+    <div class="section-header">
+      <h2>Custom Filters</h2>
+      <p>Refine your list criteria</p>
+    </div>
+    <div id="filterBuilderMount"></div>
+
+  </main>
+
+  <!-- Action Bar — DS 26 -->
+  <footer class="action-bar">
+    <div class="action-bar__inner">
+      <div style="display:flex; align-items:center; gap:var(--space-5);">
+        <p class="action-bar__hint" id="bottomHint">Select location, template, or filters to get started</p>
+        <div class="count-bar__divider" id="suppressDivider" style="display:none"></div>
+        <div class="count-bar__stat" id="suppressStat" style="display:none">
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M7 10h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span style="color:var(--color-primary-600)"><strong id="suppressedCount">0</strong> suppressed</span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:var(--space-3);">
+        <div class="suppress-btn-wrap">
+          <button class="btn btn-outline btn-md" type="button" id="suppressBtn" onclick="openDrawer()">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M2 4h12M4 8h8M7 12h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            Suppress Records
+          </button>
+          <span class="suppress-active-dot" id="suppressDot"></span>
+        </div>
+        <button
+          class="btn btn-primary btn-md"
+          id="estimateBtn"
+          type="button"
+          disabled
+          onclick="startEstimate()"
+        >
+          <svg id="estimateIcon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <rect x="2" y="2" width="12" height="12" rx="2" stroke="white" stroke-width="1.5"/>
+            <path d="M5 6h6M5 9h4" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <svg id="estimateSpinner" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="display:none; animation:spin 0.7s linear infinite;">
+            <circle cx="8" cy="8" r="6" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+            <path d="M8 2a6 6 0 0 1 6 6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span id="estimateLabel">Estimate Pull</span>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<div class="drawer-backdrop" id="drawerBackdrop" onclick="closeDrawer()"></div>
+
+<aside class="drawer" id="suppressDrawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+
+  <div class="drawer__header">
+    <h3 class="drawer__title" id="drawerTitle">Suppress Records</h3>
+    <button class="drawer__close" onclick="closeDrawer()" aria-label="Close suppression panel">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+  <div class="drawer__tabs">
+    <button class="drawer__tab drawer__tab--active" id="tabOrders" onclick="switchTab('orders')">From Past Lists</button>
+    <button class="drawer__tab" id="tabCsv" onclick="switchTab('csv')">Import CSV</button>
+  </div>
+
+  <div class="drawer__body">
+
+    <!-- Tab: Past Orders -->
+    <div class="tab-panel tab-panel--active" id="panelOrders">
+      <p style="font-size:13px; color:var(--color-neutral-500); margin-bottom:12px;">
+        Select past lists to exclude those contacts from this pull.
+      </p>
+
+      <!-- Filters -->
+      <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:12px; padding:12px; background:var(--color-neutral-50); border:1px solid var(--color-neutral-200); border-radius:var(--radius-lg);">
+        <div>
+          <label style="font-size:11px; font-weight:600; color:var(--color-neutral-500); text-transform:uppercase; letter-spacing:0.05em; display:block; margin-bottom:4px;">Tag</label>
+          <select id="filterTag" class="input input-filled" style="font-size:13px; height:34px; padding:0 10px;" onchange="applyDrawerFilters()">
+            <option value="">All tags</option>
+            <option value="Solar Q2">Solar Q2</option>
+            <option value="March Outreach">March Outreach</option>
+            <option value="Test Run">Test Run</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px; font-weight:600; color:var(--color-neutral-500); text-transform:uppercase; letter-spacing:0.05em; display:block; margin-bottom:4px;">Date range</label>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <input type="date" id="filterDateFrom" class="input input-filled" style="font-size:13px; height:34px; padding:0 8px; flex:1;" onchange="applyDrawerFilters()" />
+            <span style="font-size:12px; color:var(--color-neutral-400);">–</span>
+            <input type="date" id="filterDateTo" class="input input-filled" style="font-size:13px; height:34px; padding:0 8px; flex:1;" onchange="applyDrawerFilters()" />
+          </div>
+        </div>
+        <button type="button" onclick="clearDrawerFilters()" style="font-size:12px; color:var(--color-neutral-400); background:none; border:none; cursor:pointer; text-align:left; padding:0; font-family:inherit;">Clear filters</button>
+      </div>
+
+      <div class="suppress-order-list" id="suppressList">
+
+        <label class="suppress-order-item" id="sItem1" data-tag="Solar Q2" data-date="2026-04-14">
+          <input type="checkbox" onchange="toggleSuppression(this, 2134, 'sItem1')" />
+          <div class="suppress-order-info">
+            <div class="suppress-order-name">Scottsdale High Equity Single Family</div>
+            <div class="suppress-order-meta">Apr 14, 2026 · 2,134 records · <span class="order-tag" style="font-size:10px">Solar Q2</span></div>
+          </div>
+          <span class="badge badge--ready" style="margin-left:auto; flex-shrink:0">Ready</span>
+        </label>
+
+        <label class="suppress-order-item" id="sItem2" data-tag="March Outreach" data-date="2026-04-10">
+          <input type="checkbox" onchange="toggleSuppression(this, 3284, 'sItem2')" />
+          <div class="suppress-order-info">
+            <div class="suppress-order-name">Mesa Active Listings</div>
+            <div class="suppress-order-meta">Apr 10, 2026 · 3,284 records · <span class="order-tag" style="font-size:10px">March Outreach</span></div>
+          </div>
+          <span class="badge badge--ready" style="margin-left:auto; flex-shrink:0">Ready</span>
+        </label>
+
+        <label class="suppress-order-item" id="sItem3" data-tag="Test Run" data-date="2026-04-07" style="opacity:0.5; cursor:not-allowed; pointer-events:none">
+          <input type="checkbox" disabled />
+          <div class="suppress-order-info">
+            <div class="suppress-order-name">Tempe Multi-Family Investor Owned</div>
+            <div class="suppress-order-meta">Apr 7, 2026 · 892 records · <span class="order-tag" style="font-size:10px">Test Run</span></div>
+          </div>
+          <span class="badge badge--failed" style="margin-left:auto; flex-shrink:0">Failed</span>
+        </label>
+
+        <div id="suppressEmpty" style="display:none; padding:20px 0; text-align:center; font-size:13px; color:var(--color-neutral-400);">No lists match these filters</div>
+
+      </div>
+    </div>
+
+    <!-- Tab: Import CSV -->
+    <div class="tab-panel" id="panelCsv">
+      <p style="font-size:13px; color:var(--color-neutral-500); margin-bottom:12px;">
+        Upload a CSV of contacts to exclude. Must contain a <code style="background:var(--color-neutral-100); padding:1px 5px; border-radius:4px; font-size:12px">phone</code> or <code style="background:var(--color-neutral-100); padding:1px 5px; border-radius:4px; font-size:12px">email</code> column.
+      </p>
+      <div class="file-upload" onclick="simulateCsvUpload()" id="fileUploadArea">
+        <svg class="file-upload__icon" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <path d="M18 24V12M12 18l6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 28h24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <p class="file-upload__label"><span>Click to upload</span> or drag and drop</p>
+        <p class="file-upload__hint">CSV up to 500MB · Max 1M rows</p>
+      </div>
+      <div id="csvUploaded" style="display:none">
+        <div class="alert alert--success">
+          <svg class="alert__icon" viewBox="0 0 18 18" fill="none"><path d="M3 9.5l3.5 3.5L15 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
+          <span><strong>suppression_list.csv</strong> uploaded — 1,247 records will be excluded.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="drawer__footer">
+    <span class="drawer__footer-hint" id="suppressHint">No suppression applied</span>
+    <div style="display:flex; gap:8px">
+      <button class="btn btn-outline btn-sm" onclick="clearSuppression()">Clear</button>
+      <button class="btn btn-primary btn-sm" onclick="applyAndClose()">Apply</button>
+    </div>
+  </div>
+
+</aside>
+
+<style>
+@keyframes spin { to { transform: rotate(360deg); } }
+</style>
+<script src="js/filter-builder.js"></script>
+<script src="js/app.js"></script>
+<script>
+initPage();
+
+// ── Pre-seed Street Address filter on load ───────────────────────────────
+setTimeout(function () {
+  if (!window.addFilter) return;
+  window.addFilter(); // adds empty filter row + opens picker
+  var opt = document.querySelector('[data-action="select-field"][data-key="address.street"]');
+  if (opt) opt.click(); // selects Street Address, closes picker
+}, 200);
+
+// ── Suppression state ─────────────────────────────────────────────────────
+let suppressedRecords = 0;
+
+function formatNum(n) { return n.toLocaleString('en-US'); }
+
+function updateSuppressBar() {
+  const hasSuppression = suppressedRecords > 0;
+  document.getElementById('suppressDivider').style.display = hasSuppression ? '' : 'none';
+  document.getElementById('suppressStat').style.display    = hasSuppression ? '' : 'none';
+  document.getElementById('suppressedCount').textContent   = formatNum(suppressedRecords);
+  document.getElementById('suppressDot').classList.toggle('suppress-active-dot--visible', hasSuppression);
+  document.getElementById('suppressHint').innerHTML = hasSuppression
+    ? '<span class="suppression-count">' + formatNum(suppressedRecords) + ' records</span> will be suppressed'
+    : 'No suppression applied';
+}
+
+function toggleSuppression(cb, count, itemId) {
+  document.getElementById(itemId).classList.toggle('suppress-order-item--selected', cb.checked);
+  suppressedRecords += cb.checked ? count : -count;
+  suppressedRecords = Math.max(0, suppressedRecords);
+  updateSuppressBar();
+}
+
+function simulateCsvUpload() {
+  document.getElementById('fileUploadArea').style.display = 'none';
+  document.getElementById('csvUploaded').style.display = '';
+  suppressedRecords += 1247;
+  updateSuppressBar();
+}
+
+function clearSuppression() {
+  suppressedRecords = 0;
+  document.querySelectorAll('.suppress-order-item input[type="checkbox"]').forEach(cb => { cb.checked = false; });
+  document.querySelectorAll('.suppress-order-item').forEach(el => el.classList.remove('suppress-order-item--selected'));
+  document.getElementById('fileUploadArea').style.display = '';
+  document.getElementById('csvUploaded').style.display = 'none';
+  updateSuppressBar();
+}
+
+// ── Drawer open / close ───────────────────────────────────────────────────
+function openDrawer() {
+  document.getElementById('drawerBackdrop').classList.add('drawer-backdrop--open');
+  document.getElementById('suppressDrawer').classList.add('drawer--open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDrawer() {
+  document.getElementById('drawerBackdrop').classList.remove('drawer-backdrop--open');
+  document.getElementById('suppressDrawer').classList.remove('drawer--open');
+  document.body.style.overflow = '';
+}
+
+function applyAndClose() { closeDrawer(); }
+
+// ── Drawer filters ────────────────────────────────────────────────────────
+function applyDrawerFilters() {
+  const tag      = document.getElementById('filterTag').value;
+  const dateFrom = document.getElementById('filterDateFrom').value;
+  const dateTo   = document.getElementById('filterDateTo').value;
+  const items    = document.querySelectorAll('.suppress-order-item[data-date]');
+  let visible    = 0;
+  items.forEach(item => {
+    const tagMatch  = !tag      || item.dataset.tag  === tag;
+    const fromMatch = !dateFrom || item.dataset.date >= dateFrom;
+    const toMatch   = !dateTo   || item.dataset.date <= dateTo;
+    const show = tagMatch && fromMatch && toMatch;
+    item.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  document.getElementById('suppressEmpty').style.display = visible === 0 ? '' : 'none';
+}
+
+function clearDrawerFilters() {
+  document.getElementById('filterTag').value      = '';
+  document.getElementById('filterDateFrom').value = '';
+  document.getElementById('filterDateTo').value   = '';
+  applyDrawerFilters();
+}
+
+// ── Tab switching ─────────────────────────────────────────────────────────
+function switchTab(tab) {
+  const isOrders = tab === 'orders';
+  document.getElementById('tabOrders').classList.toggle('drawer__tab--active', isOrders);
+  document.getElementById('tabCsv').classList.toggle('drawer__tab--active', !isOrders);
+  document.getElementById('panelOrders').classList.toggle('tab-panel--active', isOrders);
+  document.getElementById('panelCsv').classList.toggle('tab-panel--active', !isOrders);
+}
+
+// ── Estimate → carry suppression to step 2 ───────────────────────────────
+function startEstimate() {
+  sessionStorage.setItem('suppressedRecords', suppressedRecords.toString());
+  const btn = document.getElementById('estimateBtn');
+  btn.disabled = true;
+  document.getElementById('estimateIcon').style.display    = 'none';
+  document.getElementById('estimateSpinner').style.display = '';
+  document.getElementById('estimateLabel').textContent     = 'Estimating…';
+  setTimeout(() => { window.location.href = 'step2.html'; }, 1400);
+}
+</script>
+</body>
+</html>
