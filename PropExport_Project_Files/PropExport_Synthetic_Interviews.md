@@ -1,4 +1,4 @@
-# BatchData List Builder — Synthetic User Interviews
+# PropExport List Builder — Synthetic User Interviews
 **ORIL · March 2026 · CONFIDENTIAL**
 
 ---
@@ -48,7 +48,7 @@ AI personas based on PRD assumptions. Each persona answered the full question sc
 ### Design Implications
 - Filter combinations must be first-class — AND/OR logic, ability to stack multiple criteria without friction
 - Suppression must visibly update the live count — Derek needs proof it's working, not a promise
-- For small lists (under a threshold TBD with BatchData), consider sync export to eliminate wait time
+- For small lists (under a threshold TBD with PropExport), consider sync export to eliminate wait time
 - Order history must show exactly what filters were used on each past pull — Derek reviews old lists to avoid repeating them
 
 ---

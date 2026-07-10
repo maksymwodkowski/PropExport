@@ -1,4 +1,4 @@
-# BatchData List Builder — UX Research Plan
+# PropExport List Builder — UX Research Plan
 **ORIL · March 2026 · CONFIDENTIAL**
 
 ---
@@ -76,11 +76,11 @@ No real users available. We use **Synthetic User Interviews** — AI personas ba
 
 | # | Question | Owner |
 |---|----------|-------|
-| Q1 | Show cost estimate during filtering or only at Download confirm? | BatchData / Sean |
-| Q2 | Does suppression update the live count in real time? | BatchData / Joseph |
-| Q3 | In-app notification when async job is ready — or email too? | BatchData / Sean |
-| Q4 | What error does the API return on insufficient credits? | BatchData / Joseph |
-| Q5 | Platform locked or partially usable before token is configured? | ORIL + BatchData |
+| Q1 | Show cost estimate during filtering or only at Download confirm? | PropExport / Sean |
+| Q2 | Does suppression update the live count in real time? | PropExport / Joseph |
+| Q3 | In-app notification when async job is ready — or email too? | PropExport / Sean |
+| Q4 | What error does the API return on insufficient credits? | PropExport / Joseph |
+| Q5 | Platform locked or partially usable before token is configured? | ORIL + PropExport |
 
 ---
 
@@ -92,7 +92,7 @@ No real users available. We use **Synthetic User Interviews** — AI personas ba
 | 2 | Morning | Synthesize — top 3 insights per persona | Insight summary |
 | 3 | Afternoon | Map user flows UF-01 to UF-08 | Annotated flow diagrams |
 | 4 | Afternoon | Define Information Architecture | Navigation structure + screen hierarchy |
-| 5 | Afternoon | Resolve Q1–Q5 with BatchData | Updated open questions log |
+| 5 | Afternoon | Resolve Q1–Q5 with PropExport | Updated open questions log |
 | 6 | End of day | Hand off to design | Screen inventory + wireframe brief |
 
 ---

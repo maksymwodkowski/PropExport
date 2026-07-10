@@ -1,4 +1,4 @@
-# BatchData List Builder — Design Handoff
+# PropExport List Builder — Design Handoff
 **ORIL · March 2026 · CONFIDENTIAL**
 
 ---
@@ -35,11 +35,11 @@ Single source of truth for the designer. Everything needed to start wireframing 
 
 ### UF-01 — List Builder (S-02, S-03)
 The core screen. Entry point is location search at the top. Below it: QuickList templates as the default starting point (cards or chips), with an option to switch to custom filters. Filter panel sits to the left or in a collapsible panel. Live count + cost estimate are always visible — pinned, not buried. Suppression panel accessible inline (not a separate page). Download CTA is prominent but secondary to the count/cost display. Confirmation modal shows cost one final time before job is submitted.
-- **Q1 pending** — cost estimate placement may shift depending on BatchData answer
+- **Q1 pending** — cost estimate placement may shift depending on PropExport answer
 - **Q2 pending** — suppression count update behaviour TBC
 
 ### UF-02 — Admin Token Setup (S-09)
-First-run screen for admins. Simple, focused layout — token input field, save button, immediate validation feedback. On success: show a confirmation panel listing active datasets and per-record pricing. On failure: clear inline error with BatchData contact info. Platform should prompt admin to complete this step if token is not yet configured.
+First-run screen for admins. Simple, focused layout — token input field, save button, immediate validation feedback. On success: show a confirmation panel listing active datasets and per-record pricing. On failure: clear inline error with PropExport contact info. Platform should prompt admin to complete this step if token is not yet configured.
 - **Q5 pending** — whether List Builder is accessible before token setup affects empty state design
 
 ### UF-03 — User Management (S-10, S-11, S-12)
@@ -57,7 +57,7 @@ Persistent banner — visible on every screen after a job is submitted. Not a pa
 - **Q3 pending** — email notification scope TBC
 
 ### UF-08 — Failed Order (S-15)
-Error state shown when download fails due to insufficient credits. Clear message explaining what happened. Single CTA: "Contact BatchData to top up your account." Failed order still appears in Order History with Failed status.
+Error state shown when download fails due to insufficient credits. Clear message explaining what happened. Single CTA: "Contact PropExport to top up your account." Failed order still appears in Order History with Failed status.
 - **Q4 pending** — exact API error message TBC
 
 ---
@@ -83,7 +83,7 @@ Error state shown when download fails due to insufficient credits. Clear message
 | Q2 | S-02, S-07 | Does suppression update live count in real time? | Joseph |
 | Q3 | S-04 | In-app only or email notification when job is ready? | Sean |
 | Q4 | S-15 | Exact API error on insufficient credits? | Joseph |
-| Q5 | S-09 | Platform locked before token is configured? | ORIL + BatchData |
+| Q5 | S-09 | Platform locked before token is configured? | ORIL + PropExport |
 
 ---
 

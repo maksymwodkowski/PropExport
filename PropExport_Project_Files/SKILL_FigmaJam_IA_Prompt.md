@@ -80,12 +80,12 @@ Deliver the full prompt inside a copyable code block or copy-button widget. Do n
 
 ---
 
-## Full example output (BatchData List Builder)
+## Full example output (PropExport List Builder)
 
 ```
 Standard UX information architecture diagram. Simple rectangular nodes with text labels only. No icons, no badges, no colors, no roles, no annotations. Parent-to-child connections only. No arrows between siblings.
 
-BatchData List Builder
+PropExport List Builder
 ├── Auth
 │   └── Login
 ├── List Builder

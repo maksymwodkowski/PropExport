@@ -1,4 +1,4 @@
-# BatchData List Builder — Information Architecture
+# PropExport List Builder — Information Architecture
 **ORIL · March 2026 · CONFIDENTIAL**
 
 ---
@@ -19,7 +19,7 @@ Two roles, two navigation contexts.
 |---|---------|---------|
 | 1 | List Builder | Same as regular user |
 | 2 | Orders | Same as regular user |
-| 3 | Settings → API Token | Configure BatchData token |
+| 3 | Settings → API Token | Configure PropExport token |
 | 4 | Settings → Users | Invite, revoke, manage team |
 | 5 | Profile | Logout |
 

@@ -1,7 +1,7 @@
 # Competitor Research Report — Property Data List Builder
 
 **Date:** March 26, 2026
-**ORIL Confidential — BatchData List Builder Project**
+**ORIL Confidential — PropExport List Builder Project**
 **Research Sources:** G2, Capterra, Reddit (r/realestateinvesting, r/wholesaling), Trustpilot, YouTube demos
 
 ---
@@ -124,7 +124,7 @@
 **True white-label with API token dataset control** — No competitor offers full reseller branding with per-client data access control.
 
 ### Biggest Competitive Risk
-**PropStream filter depth** (100+ criteria) — Hard to match without schema drift. Requires a clear schema update process with BatchData.
+**PropStream filter depth** (100+ criteria) — Hard to match without schema drift. Requires a clear schema update process with PropExport.
 
 ---
 

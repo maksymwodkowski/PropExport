@@ -1,4 +1,4 @@
-# BatchData List Builder — User Flows
+# PropExport List Builder — User Flows
 **ORIL · March 2026 · CONFIDENTIAL**
 
 ---
@@ -21,14 +21,14 @@
 
 **Failure states:**
 - Count returns 0 → explain why (no results for filter combo)
-- Insufficient credits → clear error + contact BatchData CTA
+- Insufficient credits → clear error + contact PropExport CTA
 - Async job fails → Failed status in order history + error message
 
 ---
 
 ## UF-02 — Admin Setup & Token Config
 
-**Trigger:** Admin receives credentials from BatchData, logs in for first time
+**Trigger:** Admin receives credentials from PropExport, logs in for first time
 **Personas:** P5
 
 | Step | Action | System Response |
@@ -36,12 +36,12 @@
 | 1 | Admin receives credentials via email | — |
 | 2 | Logs in → lands on empty dashboard | Prompt to complete setup |
 | 3 | Navigates to Settings → API Token | Token input screen |
-| 4 | Enters token provided by BatchData | Immediate validation |
+| 4 | Enters token provided by PropExport | Immediate validation |
 | 5 | System confirms token is valid | Shows active datasets + pricing |
 | 6 | Platform unlocked for full use | — |
 
 **Failure states:**
-- Invalid token → clear error ("Token not recognised — contact BatchData")
+- Invalid token → clear error ("Token not recognised — contact PropExport")
 - Token entered but datasets not loading → show which datasets failed
 
 ---
@@ -148,7 +148,7 @@
 |------|--------|-----------------|
 | 1 | User confirms download | API returns insufficient credits error |
 | 2 | — | Clear error message shown |
-| 3 | — | CTA: "Contact BatchData to top up your account" |
+| 3 | — | CTA: "Contact PropExport to top up your account" |
 | 4 | Failed order logged | Appears in Order History with "Failed" status |
 
 **Failure states:**
